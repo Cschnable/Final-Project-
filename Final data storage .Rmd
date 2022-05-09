@@ -1,0 +1,134 @@
+---
+title: "Assignment 4"
+author: "Connor Schnable"
+output:
+  html_document: default 
+  pdf_document: default 
+---
+
+#1.  This data project, includes data about people visiting a mall, this includes gender, customer id, income, and spending. The goal is to segment the customers into groups based on common characteristics to find which group of people to market toward.
+#2.  This dataset was retrieved from Kaggle, a website that provides data scientists with a huge repository of community published data and code.
+
+getwd()
+setwd("/Users/connor/Downloads")
+
+
+```{r}
+Customer_Data<-read.csv("Mall_Customers.csv")
+View(Mall_Customers)
+str(Customer_Data)
+
+names(Mall_Customers)
+#3. Above is the code I used to import and save the dataset in R. I used the "read.csv" code to save the "Mall_Customers.csv" file. I also renamed the file to "Customer_Data" to make it easier to code. 
+```
+
+#4. This dataframe has `r nrow(Customer_Data)` rows and `r ncol(Customer_Data)` columns. This dataframe also has variables like, Customer ID, Gender, Age, Annual Income, and Spending Score. I provide more descriptive information for all variables in the next couple of lines. #5. There was no data preparation needed for this dataset. Some data prep that was certainly done was recovering correct data and making sure the results were correct since many times when using raw data there are extreme outliers and data that simply doesn't belong there. There would have also been someone making sure they only use a certain amount of the results because another issue with raw data is that the dataset can get very large very fast especially with data like this from customer segmentation.
+
+#6. The modeling type was a clustering model. This means they used categorized records, like we saw in the Customer_Data, into a certain number of clusters.
+
+```{r}
+head(Customer_Data)
+summary(Customer_Data$Age)
+```
+
+```{r}
+sd(Customer_Data$Age)
+summary(Customer_Data$Annual.Income..k..)
+sd(Customer_Data$Annual.Income..k..)
+summary(Customer_Data$Age)
+sd(Customer_Data$Spending.Score..1.100.)
+```
+
+```{r}
+a=table(Customer_Data$Genre)
+barplot(a,main="Using BarPlot to display Gender Comparision",
+       ylab="Count",
+       xlab="Gender",
+       col=rainbow(2),
+       legend=rownames(a))
+```
+
+#8. This Barplot shows the gender differential in frequency of shoppers at a mall. We can clearly see that females shop there more frequently.
+
+```{r}
+library(plotrix)
+pct=round(a/sum(a)*100)
+lbs=paste(c("Female","Male")," ",pct,"%",sep=" ")
+library(plotrix)
+pie3D(a,labels=lbs,
+   main="Pie Chart Depicting Ratio of Female and Male")
+```
+
+#8. This pie chart shows the exact ratio of female compared to male shoppers at a mall. We can clearly see that females are much more frequent than males.
+
+```{r}
+summary(Customer_Data$Age)
+```
+
+```{r}
+hist(Customer_Data$Age,
+    col="blue",
+    main="Histogram to Show Count of Age Class",
+    xlab="Age Class",
+    ylab="Frequency",
+    labels=TRUE)
+```
+
+#8. This histogram shows the spread of age groups who shop at malls. The highest frequency of shoppers were 30-40 year olds.
+
+```{r}
+boxplot(Customer_Data$Age,
+       col="orange",
+       main="Boxplot for Descriptive Analysis of Age")
+```
+
+#8. This boxplot shows the analysis of the frequency of age groups amongst shoppers at malls.
+
+```{r}
+summary(Customer_Data$Annual.Income..k..)
+hist(Customer_Data$Annual.Income..k..,
+  col="#660033",
+  main="Histogram for Annual Income",
+  xlab="Annual Income Class",
+  ylab="Frequency",
+  labels=TRUE)
+```
+
+#8. This histogram shows the annual class in terms of income and how they relate to shopping at malls. The highest frequency amongst annual income was between 60-80 thousand.
+
+```{r}
+plot(density(Customer_Data$Annual.Income..k..),
+    col="yellow",
+    main="Density Plot for Annual Income",
+    xlab="Annual Income Class",
+    ylab="Density")
+polygon(density(Customer_Data$Annual.Income..k..),
+        col="orange")
+```
+
+#8. This is a density plot that shows again annual income class. It shows the density of income class that shop at malls. The highest annual income class is between 50-100 so this would be middle class.
+
+```{r}
+summary(Customer_Data$Spending.Score..1.100.)
+#Min. 1st Qu. Median Mean 3rd Qu. Max. 
+## 1.00 34.75 50.00 50.20 73.00 99.00
+boxplot(Customer_Data$Spending.Score..1.100.,
+   horizontal=TRUE,
+   col="#990000",
+   main="BoxPlot for Descriptive Analysis of Spending Score")
+```
+
+#8. here is another boxplot that shows the analysis of spending amongst mall shoppers. The highest frequency is around \$50.
+
+```{r}
+hist(Customer_Data$Spending.Score..1.100.,
+    main="HistoGram for Spending Score",
+    xlab="Spending Score Class",
+    ylab="Frequency",
+    col="#6600cc",
+    labels=TRUE)
+```
+
+#8. Here we see a histogram that portrays the frequency of spending score amongst mall shoppers. We can see that the highest freqeuncy of spending score was between 40 and 60. A spending score is a score out of 100 given to a customer that is based on the money spent and the behavior of the customer.
+
+#7. We can see from these outputs that more females than males shop at malls, 30-40 year olds are the highest frequency of age group. People who make around 60-80 thousand per year shop at malls the most. And the highest frequency of spending score was 40-60.
